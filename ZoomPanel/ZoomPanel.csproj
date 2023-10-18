@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net46;net5-windows</TargetFrameworks>
+    <RootNamespace>Moravuscz.WPF.ZoomPanel</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Moravuscz.WPF.ZoomPanel</AssemblyName>
+    <Authors>Clifford Nelson, Moravuscz</Authors>
+    <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Moravuscz/WPFZoomPanel</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Moravuscz/WPFZoomPanel</RepositoryUrl>
+    <PackageTags>wpf</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>ZoomPanel.png</PackageIcon>
+    <PackageIconUrl />
+    <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
+    <PackageId>Moravuscz.WPFZoomPanel</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\ZoomPanel.ico" />
+    <None Include="Resources\ZoomPanel.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ZoomPanel.EventHandlers.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.IScrollInfo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.Methods.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.UndoRedo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../LICENSE.MD">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE.MD">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <_DeploymentManifestIconFile Remove="Resources\ZoomPanel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ZoomPanel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="GitInfo" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

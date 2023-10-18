@@ -1,0 +1,219 @@
+﻿<UserControl
+    x:Class="ZoomAndPanSample.ZoomAndPanScrollViewerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:WPFZoomPanel="https://github.com/Moravuscz/WPFZoomPanel"
+    xmlns:local="clr-namespace:ZoomAndPanSample"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=local:ZoomAndPanScrollViewerView}"
+    d:DesignHeight="400"
+    d:DesignWidth="800"
+    x:Name="ZoomAndPanScrollViewerViewViewUC"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    Focusable="True">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.InputBindings>
+            <KeyBinding
+                Key="Minus"
+                Command="{Binding ZoomOutCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}" />
+            <KeyBinding
+                Key="Subtract"
+                Command="{Binding ZoomOutCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}" />
+            <KeyBinding
+                Key="Add"
+                Command="{Binding ZoomInCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}" />
+            <KeyBinding
+                Key="OemPlus"
+                Command="{Binding ZoomInCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}" />
+            <KeyBinding
+                Key="Back"
+                Command="{Binding UndoZoomCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}" />
+            <KeyBinding
+                Key="Z"
+                Command="{Binding UndoZoomCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Modifiers="Ctrl" />
+            <KeyBinding
+                Key="Y"
+                Command="{Binding RedoZoomCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Modifiers="Ctrl" />
+        </Grid.InputBindings>
+        <!--
+            This is the control wraps the ZoomAndPanControl in a ScrollViewer
+        -->
+        <WPFZoomPanel:ZoomPanelScrollViewer
+            Name="ZoomAndPanScrollViewerExample"
+            Grid.Row="0"
+            Background="#AACCCCCC"
+            MinimumZoomType="MinimumZoom"
+            MouseDragZoomModifier="Alt"
+            ScrollLeftRightModifier="Ctrl"
+            ScrollUpDownModifier="Alt"
+            ScrollZoomModifier=""
+            UseAnimations="{Binding IsChecked, ElementName=AnimationsCheckBox}"
+            ZoomAndPanInitialPosition="OneHundredPercentCentered">
+            <!--
+                This is the content that is displayed.
+            -->
+            <Grid x:Name="theGrid">
+                <!--
+                    This Canvas is the main part of the content that is displayed.
+                -->
+                <local:ImageColorPicker
+                    x:Name="actualContent"
+                    Scale="{Binding ViewportZoom, ElementName=ZoomAndPanScrollViewerExample}"
+                    Source="Colors.jpg" />
+                <local:CenteredCrossHairCanvas
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Opacity=".5"
+                    Scale="{Binding ViewportZoom, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                    Show="{Binding IsChecked, ElementName=CrosshairsCheckBox}"
+                    StrokeBrush="Green"
+                    StrokeThickness="2" />
+                <local:RectangleObserableCollectionCanvas
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Opacity=".5"
+                    Rectangles="{Binding Rectangles}"
+                    Scale="{Binding ViewportZoom, ElementName=ZoomAndPanScrollViewerExample, Mode=TwoWay}"
+                    StrokeThickness="2" />
+            </Grid>
+        </WPFZoomPanel:ZoomPanelScrollViewer>
+        <StackPanel
+            Name="ViewBoxContent"
+            Grid.Row="1"
+            Margin="5,5,5,5"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <!--
+                The fit button.  Causes the content to be scaled so that it fits in the viewport.
+            -->
+            <Button
+                Width="40"
+                Command="{Binding UndoZoomCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="Undo" />
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding RedoZoomCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="Redo" />
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding FitCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="Fit" />
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding FillCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="Fill" />
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding ZoomPercentCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="100%" />
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding ZoomPercentCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="200%">
+                <Button.CommandParameter>
+                    <system:Double>200</system:Double>
+                </Button.CommandParameter>
+            </Button>
+            <Border Width="5" />
+            <Button
+                Width="40"
+                Command="{Binding ZoomRatioFromMinimumCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="4x">
+                <Button.CommandParameter>
+                    <system:Double>4</system:Double>
+                </Button.CommandParameter>
+            </Button>
+            <Border Width="5" />
+            <TextBlock
+                Width="50"
+                VerticalAlignment="Center"
+                Text="{Binding ViewportZoom, ElementName=ZoomAndPanScrollViewerExample, StringFormat=P1}"
+                TextAlignment="Right" />
+            <Border Width="10" />
+            <!--  Button to zoom out.  -->
+            <Button
+                Width="25"
+                Command="{Binding ZoomOutCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="-" />
+            <Border Width="5" />
+
+            <!--  Slider to change the current zoom level.  -->
+            <Slider
+                Width="120"
+                LargeChange="20"
+                Maximum="10"
+                Minimum="{Binding ZoomAndPanContent.MinimumZoomClamped, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                SmallChange=".1"
+                TickFrequency="10"
+                TickPlacement="TopLeft"
+                Value="{Binding ViewportZoom, ElementName=ZoomAndPanScrollViewerExample, Mode=TwoWay}" />
+
+            <Border Width="5" />
+            <!--
+                Button to zoom in.
+            -->
+            <Button
+                Width="25"
+                Command="{Binding ZoomInCommand, ElementName=ZoomAndPanScrollViewerExample, Mode=OneWay}"
+                Content="+" />
+            <Border Width="5" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <CheckBox
+                Name="CrosshairsCheckBox"
+                VerticalAlignment="Center"
+                Content="Show Crosshairs" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Margin="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <TextBlock
+                FontWeight="Bold"
+                Text="Mouse Position" />
+            <TextBlock
+                Margin="10,0"
+                Text="{Binding MousePosition.X, ElementName=ZoomAndPanScrollViewerExample, StringFormat=X: {0:F0}}" />
+            <TextBlock
+                Margin="10,0"
+                Text="{Binding MousePosition.Y, ElementName=ZoomAndPanScrollViewerExample, StringFormat=Y: {0:F0}}" />
+            <TextBlock
+                Margin="5,5"
+                Text="{Binding SelectedColor, ElementName=actualContent, Mode=OneWay, StringFormat=Color: {0}}" />
+        </StackPanel>
+        <CheckBox
+            Name="AnimationsCheckBox"
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Content="Use Animations"
+            IsChecked="True" />
+        <WPFZoomPanel:ZoomPanelMinimap
+            Grid.Row="2"
+            DataContext="{Binding ElementName=ZoomAndPanScrollViewerExample}"
+            Width="100"
+            Height="100"
+            Background="#AACCCCCC"
+            Visual="{Binding ElementName=actualContent}" />
+    </Grid>
+</UserControl>
