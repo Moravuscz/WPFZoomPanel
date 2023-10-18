@@ -1,29 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;net5-windows</TargetFrameworks>
-    <RootNamespace>Moravuscz.WPF.ZoomPanel</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWPF>true</UseWPF>
     <AssemblyName>Moravuscz.WPF.ZoomPanel</AssemblyName>
+    <RootNamespace>Moravuscz.WPF.ZoomPanel</RootNamespace>
     <Authors>Clifford Nelson, Moravuscz</Authors>
-    <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
+    <Company>Moravuscz</Company>
+    <Copyright>Clifford Nelson, Moravuscz</Copyright>
+    <Product>WPF ZoomPanel</Product>
+    <Description>A Custom WPF Zoom and Pan Control</Description>
+    <TargetFrameworks>net46;net5-windows</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>D:\develop\nuget_packages\</PackageOutputPath>
+    <PackageId>Moravuscz.WPFZoomPanel</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Moravuscz/WPFZoomPanel</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/Moravuscz/WPFZoomPanel</RepositoryUrl>
     <PackageTags>wpf</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageIcon>ZoomPanel.png</PackageIcon>
-    <PackageIconUrl />
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder Condition="'$(Configuration)' == 'Debug'">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <DocumentationFile>Moravuscz.WPF.ZoomPanel.xml</DocumentationFile>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PackageIcon>Resources\ZoomPanel.png</PackageIcon>
     <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
-    <PackageId>Moravuscz.WPFZoomPanel</PackageId>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Resources\ZoomPanel.ico" />
-    <None Include="Resources\ZoomPanel.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+  
+  
   <ItemGroup>
     <Compile Update="ZoomPanel.EventHandlers.cs">
       <DependentUpon>ZoomPanel.cs</DependentUpon>
@@ -38,30 +42,41 @@
       <DependentUpon>ZoomPanel.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="../LICENSE.MD">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\LICENSE.MD">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+
+  <!-- GitInfo-->
+  <PropertyGroup Label="GitInfo Settings">
+    <GitVersion>false</GitVersion>
+    <GitThisAssembly>true</GitThisAssembly>
+    <ThisAssemblyNamespace>System.Reflection</ThisAssemblyNamespace>
+    <GitInfoReportImportance>high</GitInfoReportImportance>
+    <IncludeSourceRevisionInInformationalVersion Condition="'$(Configuration)' == 'Release'">false</IncludeSourceRevisionInInformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion Condition="'$(Configuration)' == 'Debug'">true</IncludeSourceRevisionInInformationalVersion>
+    <SourceRevisionId Condition="'$(Configuration)' == 'Debug'">debug</SourceRevisionId>
+  </PropertyGroup>
+
+  <Target Name="PopulateInfo" DependsOnTargets="GitVersion" BeforeTargets="GetAssemblyVersion;GenerateNuspec;GetPackageContents">
+    <PropertyGroup>
+      <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)+$(GitCommit)</Version>
+      <AssemblyVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</AssemblyVersion>
+      <FileVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</FileVersion>
+      <InformationalVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch).$(GitCommits)+$(GitCommit)</InformationalVersion>
+      <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</PackageVersion>
+      <RepositoryBranch>$(GitBranch)</RepositoryBranch>
+      <RepositoryCommit>$(GitCommit)</RepositoryCommit>
+    </PropertyGroup>
+  </Target>
+  <!-- GitInfo -->
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <Reference Include="System.Xaml" />
   </ItemGroup>
+  
   <ItemGroup>
-    <_DeploymentManifestIconFile Remove="Resources\ZoomPanel.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\ZoomPanel.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="GitInfo" Version="3.3.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="GitInfo" Version="3.3.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>
