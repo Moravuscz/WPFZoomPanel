@@ -6,8 +6,9 @@
     <Company>Moravuscz</Company>
     <Copyright>Clifford Nelson, Moravuscz</Copyright>
     <Product>WPF ZoomPanel</Product>
-    <Description>A Custom WPF Zoom and Pan Control</Description>
-    <TargetFrameworks>net46;net5-windows</TargetFrameworks>
+    <Description>An Enhanced WPF Custom Control for Zooming and Panning by Clifford Nelson, modified by Moravuscz</Description>
+    <TargetFrameworks>net46;net5.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>D:\develop\nuget_packages\</PackageOutputPath>
     <PackageId>Moravuscz.WPFZoomPanel</PackageId>
@@ -21,33 +22,15 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder Condition="'$(Configuration)' == 'Debug'">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <DocumentationFile>Moravuscz.WPF.ZoomPanel.xml</DocumentationFile>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <PackageIcon>Resources\ZoomPanel.png</PackageIcon>
     <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
+    <PackageIcon>ZoomPanel.png</PackageIcon>
   </PropertyGroup>
-  
-  
-  <ItemGroup>
-    <Compile Update="ZoomPanel.EventHandlers.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.IScrollInfo.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.Methods.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.UndoRedo.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
 
-  <!-- GitInfo-->
+  <!-- GitInfo -->
   <PropertyGroup Label="GitInfo Settings">
     <GitVersion>false</GitVersion>
     <GitThisAssembly>true</GitThisAssembly>
-    <ThisAssemblyNamespace>System.Reflection</ThisAssemblyNamespace>
     <GitInfoReportImportance>high</GitInfoReportImportance>
     <IncludeSourceRevisionInInformationalVersion Condition="'$(Configuration)' == 'Release'">false</IncludeSourceRevisionInInformationalVersion>
     <IncludeSourceRevisionInInformationalVersion Condition="'$(Configuration)' == 'Debug'">true</IncludeSourceRevisionInInformationalVersion>
@@ -67,12 +50,45 @@
   </Target>
   <!-- GitInfo -->
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-
+  <ItemGroup>
+    <Compile Update="ZoomPanel.EventHandlers.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.IScrollInfo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.Methods.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.UndoRedo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="Resources\ZoomPanel.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
   <ItemGroup>

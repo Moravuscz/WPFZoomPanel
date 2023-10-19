@@ -256,8 +256,14 @@ namespace Moravuscz.WPFZoomPanel
             set => SetValue(ContentZoomFocusYProperty, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double FillZoomValue => ViewportHelpers.FillZoom(ActualWidth, ActualHeight, _content?.ActualWidth, _content?.ActualHeight);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double FitZoomValue => ViewportHelpers.FitZoom(ActualWidth, ActualHeight, _content?.ActualWidth, _content?.ActualHeight);
 
         /// <summary>
@@ -386,6 +392,9 @@ namespace Moravuscz.WPFZoomPanel
             set => SetValue(ZoomAndPanInitialPositionProperty, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ModifierKeys ScrollZoomModifier
         {
             get => (ModifierKeys)GetValue(ScrollZoomModifierProperty);
