@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-  <PropertyGroup Label="Project Information">
+  <PropertyGroup Label="Baisc Project Information">
     <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
     <RootNamespace>Moravuscz.WPF.ZoomPanel</RootNamespace>
     <AssemblyName>Moravuscz.WPF.ZoomPanel</AssemblyName>
     <UseWPF>true</UseWPF>
     <DebugType>portable</DebugType>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
     
   <PropertyGroup Label="Assembly Metadata">
@@ -16,22 +17,24 @@
     <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
   </PropertyGroup>
     
-  <PropertyGroup Label="PackageInformation">
+  <PropertyGroup Label="Package Information">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>D:\develop\nuget_packages\</PackageOutputPath>
     <PackageId>Moravuscz.WPFZoomPanel</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>ZoomPanel.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/Moravuscz/WPFZoomPanel</PackageProjectUrl>
+    <PackageReleaseNotes>First public-worthy release</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Moravuscz/WPFZoomPanel</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>wpf</PackageTags>
+    <PackageTags>wpf zoompanel pan-and-zoom</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder Condition="'$(Configuration)' == 'Debug'">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <DocumentationFile>Moravuscz.WPF.ZoomPanel.xml</DocumentationFile>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup Label="Partial Class Grouping">
