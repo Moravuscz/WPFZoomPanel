@@ -1,5 +1,8 @@
 # ZoomPanel: A Custom WPF Zoom and Pan Control
-
+![IDE = Visual Studio 2019](https://img.shields.io/badge/IDE-Visual%20Studio%202019-blue)
+![Language = C#](https://img.shields.io/badge/Language-C%23-blue)
+![dotNet Framework 4.8](https://img.shields.io/badge/.NET-Framework%204.8-blue)
+![dotNet 6.0 Windows Desktop](https://img.shields.io/badge/.NET-6.0--windows-blue)  
 Based on Clifford Nelson's [Enhanced WPF Custom Control for Zooming and Panning](https://www.codeproject.com/Articles/1119476/An-Enhanced-WPF-Custom-Control-for-Zooming-and-Pan)
 
 ## Main Changes
@@ -14,9 +17,11 @@ Based on Clifford Nelson's [Enhanced WPF Custom Control for Zooming and Panning]
 
 ## Installation & usage
 
-1. Install the package from NuGet, or download the latest [.nupkg](https://github.com/Moravuscz/WPFZoomPanel/releases/latest/download/WpfZoomPanel.nupkg) or [compiled binaries](https://github.com/Moravuscz/WPFZoomPanel/releases/latest/download/WpfZoomPanel.zip) from [Releases page](https://github.com/Moravuscz/WPFZoomPanel/releases)
+1. Install the package from NuGet    
+[![Nuget](https://img.shields.io/nuget/v/Moravuscz.OmronPLCCommunications?logo=nuget)](https://www.nuget.org/packages/Moravuscz.WPFZoomPanel)  
+or download the packages or binaries from [Releases page](https://github.com/Moravuscz/WPFZoomPanel/releases)
 2. Add `xmlns:WPFZoomPanel="https://github.com/Moravuscz/WPFZoomPanel"` to your XAML Window definition
 3. Use `<WPFZoomPanel:ZoomPanel>` or `</WPFZoomPanel:ZoomPanelScrollViewer>` for whatever *content* you want to be zoom/pan-able.
 4. Add `<WPFZoomPanel:ZoomPanelViewBox>` to  add an interactive minimap for the ZoomPanel.
 
-For more details see [Wiki](https://github.com/Moravuscz/WPFZoomPanel/wiki) or play around with the included [AdvancedZoomAndPanSample](https://github.com/Moravuscz/WPFZoomPanel/releases/latest/download/AdvancedZoomAndPanSample.zip) project.
+For more details see [Wiki](https://github.com/Moravuscz/WPFZoomPanel/wiki)

@@ -1,31 +1,63 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <AssemblyName>Moravuscz.WPF.ZoomPanel</AssemblyName>
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup Label="Project Information">
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
     <RootNamespace>Moravuscz.WPF.ZoomPanel</RootNamespace>
+    <AssemblyName>Moravuscz.WPF.ZoomPanel</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+    
+  <PropertyGroup Label="Assembly Metadata">
+    <Product>WPF ZoomPanel</Product>
     <Authors>Clifford Nelson, Moravuscz</Authors>
     <Company>Moravuscz</Company>
     <Copyright>Clifford Nelson, Moravuscz</Copyright>
-    <Product>WPF ZoomPanel</Product>
     <Description>An Enhanced WPF Custom Control for Zooming and Panning by Clifford Nelson, modified by Moravuscz</Description>
-    <TargetFrameworks>net46;net5.0-windows</TargetFrameworks>
-    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
+  </PropertyGroup>
+    
+  <PropertyGroup Label="PackageInformation">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>D:\develop\nuget_packages\</PackageOutputPath>
     <PackageId>Moravuscz.WPFZoomPanel</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>ZoomPanel.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Moravuscz/WPFZoomPanel</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/Moravuscz/WPFZoomPanel</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>wpf</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder Condition="'$(Configuration)' == 'Debug'">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <DocumentationFile>Moravuscz.WPF.ZoomPanel.xml</DocumentationFile>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <ApplicationIcon>Resources\ZoomPanel.ico</ApplicationIcon>
-    <PackageIcon>ZoomPanel.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup Label="Partial Class Grouping">
+    <Compile Update="ZoomPanel.EventHandlers.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.IScrollInfo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.Methods.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ZoomPanel.UndoRedo.cs">
+      <DependentUpon>ZoomPanel.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup Label="Extra stuff to pack into .nupkg">
+    <None Include="Resources\ZoomPanel.png" Pack="true" PackagePath="" />
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
+  <ItemGroup Label="NuGet Package References">
+    <PackageReference Include="GitInfo" Version="3.3.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
 
   <!-- GitInfo -->
   <PropertyGroup Label="GitInfo Settings">
@@ -49,50 +81,4 @@
     </PropertyGroup>
   </Target>
   <!-- GitInfo -->
-
-  <ItemGroup>
-    <Compile Update="ZoomPanel.EventHandlers.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.IScrollInfo.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.Methods.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ZoomPanel.UndoRedo.cs">
-      <DependentUpon>ZoomPanel.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="Resources\ZoomPanel.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="GitInfo" Version="3.3.3" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-  </ItemGroup>
 </Project>
