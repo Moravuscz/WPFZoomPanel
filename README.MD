@@ -18,7 +18,7 @@ Based on Clifford Nelson's [Enhanced WPF Custom Control for Zooming and Panning]
 ## Installation & usage
 
 1. Install the package from NuGet    
-[![Nuget](https://img.shields.io/nuget/v/Moravuscz.OmronPLCCommunications?logo=nuget)](https://www.nuget.org/packages/Moravuscz.WPFZoomPanel)  
+[![Nuget](https://img.shields.io/nuget/v/Moravuscz.WPFZoomPanel?logo=nuget)](https://www.nuget.org/packages/Moravuscz.WPFZoomPanel)  
 or download the packages or binaries from [Releases page](https://github.com/Moravuscz/WPFZoomPanel/releases)
 2. Add `xmlns:WPFZoomPanel="https://github.com/Moravuscz/WPFZoomPanel"` to your XAML Window definition
 3. Use `<WPFZoomPanel:ZoomPanel>` or `</WPFZoomPanel:ZoomPanelScrollViewer>` for whatever *content* you want to be zoom/pan-able.
