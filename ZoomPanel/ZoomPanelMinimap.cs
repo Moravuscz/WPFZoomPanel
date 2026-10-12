@@ -48,6 +48,21 @@ namespace Moravuscz.WPFZoomPanel
         /// </summary>
         private Canvas _viewportCanvas;
 
+        /// <summary>
+        /// Visual currently mirrored into the minimap background.
+        /// </summary>
+        private FrameworkElement _backgroundVisual;
+
+        /// <summary>
+        /// Brush that paints the mirrored visual onto PART_Content.
+        /// </summary>
+        private VisualBrush _backgroundBrush;
+
+        /// <summary>
+        /// Kept so SetBackground can unsubscribe before re-subscribing.
+        /// </summary>
+        private SizeChangedEventHandler _backgroundSizeChangedHandler;
+
         #endregion Private Fields
 
         #region Public Constructors + Destructors
@@ -226,8 +241,20 @@ namespace Moravuscz.WPFZoomPanel
 
         private void SetBackground(FrameworkElement frameworkElement)
         {
+            if (_backgroundVisual != null && _backgroundSizeChangedHandler != null)
+            {
+                _backgroundVisual.SizeChanged -= _backgroundSizeChangedHandler;
+            }
+
             frameworkElement = frameworkElement ?? (DataContext as ContentControl)?.Content as FrameworkElement;
-            VisualBrush visualBrush = new VisualBrush
+            _backgroundVisual = frameworkElement;
+            if (frameworkElement == null)
+            {
+                _backgroundBrush = null;
+                return;
+            }
+
+            _backgroundBrush = new VisualBrush
             {
                 Visual = frameworkElement,
                 ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
@@ -236,15 +263,27 @@ namespace Moravuscz.WPFZoomPanel
                 Stretch = Stretch.Fill
             };
 
-            if (frameworkElement != null)
+            // Visual may be bound before OnApplyTemplate; SizeChanged can fire while PART_Content is still null.
+            _backgroundSizeChangedHandler = OnBackgroundVisualSizeChanged;
+            frameworkElement.SizeChanged += _backgroundSizeChangedHandler;
+            ApplyBackgroundFromVisual();
+        }
+
+        private void OnBackgroundVisualSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ApplyBackgroundFromVisual();
+        }
+
+        private void ApplyBackgroundFromVisual()
+        {
+            if (_viewportCanvas == null || _backgroundVisual == null || _backgroundBrush == null)
             {
-                frameworkElement.SizeChanged += (s, e) =>
-            {
-                _viewportCanvas.Height = frameworkElement.ActualHeight;
-                _viewportCanvas.Width = frameworkElement.ActualWidth;
-                _viewportCanvas.Background = visualBrush;
-            };
+                return;
             }
+
+            _viewportCanvas.Height = _backgroundVisual.ActualHeight;
+            _viewportCanvas.Width = _backgroundVisual.ActualWidth;
+            _viewportCanvas.Background = _backgroundBrush;
         }
 
         #endregion Private Methods
