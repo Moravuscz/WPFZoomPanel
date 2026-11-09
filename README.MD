@@ -3,7 +3,7 @@
 ![Language = C#](https://img.shields.io/badge/Language-C%23-blue)
 ![dotNet Framework 4.8](https://img.shields.io/badge/.NET-Framework%204.8-blue)
 ![dotNet 6.0 Windows Desktop](https://img.shields.io/badge/.NET-6.0--windows-blue)  
-Based on Clifford Nelson's [Enhanced WPF Custom Control for Zooming and Panning](https://www.codeproject.com/Articles/1119476/An-Enhanced-WPF-Custom-Control-for-Zooming-and-Pan)
+Based on Clifford Nelson's [Enhanced WPF Custom Control for Zooming and Panning](https://web.archive.org/web/20190527063819/https://www.codeproject.com/Articles/1119476/An-Enhanced-WPF-Custom-Control-for-Zooming-and-Pan) (via Wayback Machine, R.I.P. Code Project)
 
 ## Main Changes
 
